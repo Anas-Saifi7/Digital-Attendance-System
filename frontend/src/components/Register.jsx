@@ -1,5 +1,4 @@
 
-const API_BASE = import.meta.env.VITE_API_URL;
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +6,7 @@ import "../index.css";
 
 
 function Register() {
+  
   const initialForm = {
     fullName: "",
     email: "",

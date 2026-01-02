@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL;
+
 
 import React, { useState, useEffect, useMemo } from "react";
 import { FiHome, FiUsers, FiFileText, FiBarChart2 } from "react-icons/fi";
@@ -10,6 +10,7 @@ import { socket } from "../socket";
 
 
 const FacultyDashboard = () => {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
