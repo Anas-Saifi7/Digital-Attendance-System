@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import "../Style/Notifications.css";
+const API_BASE = import.meta.env.VITE_API_URL;
 
-const socket = io("http://localhost:5000"); // your backend socket
+const socket = io(API_BASE, {
+  transports: ["websocket", "polling"],
+});
+
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -14,12 +18,11 @@ const Notifications = () => {
   try {
     const token = localStorage.getItem("token");
 
-    const res = await axios.get(
-      "http://localhost:5000/api/notifications/student",
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      }
-    );
+ const res = await axios.get(
+  `${API_BASE}/api/notifications/student`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     setNotifications(res.data);
   } catch (err) {
@@ -57,11 +60,12 @@ const markRead = async (id) => {
   try {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      `http://localhost:5000/api/notifications/student/${id}/read`,
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+  await axios.put(
+  `${API_BASE}/api/notifications/student/${id}/read`,
+  {},
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     setNotifications((prev) =>
       prev.map((n) =>
@@ -73,9 +77,6 @@ const markRead = async (id) => {
   }
 };
 
-
-
-
   // ---------------------------
   // 4) DELETE NOTIFICATION
   // ---------------------------
@@ -83,10 +84,11 @@ const removeNotif = async (id) => {
   try {
     const token = localStorage.getItem("token");
 
-    await axios.delete(
-      `http://localhost:5000/api/notifications/student/${id}`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+  await axios.delete(
+  `${API_BASE}/api/notifications/student/${id}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     setNotifications((prev) =>
       prev.filter((n) => n._id !== id)
@@ -110,14 +112,11 @@ const clearAll = async () => {
       return;
     }
 
-    await axios.delete(
-      "http://localhost:5000/api/notifications/student/all",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+await axios.delete(
+  `${API_BASE}/api/notifications/student/all`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     // Clear UI list
     setNotifications([]);
@@ -133,11 +132,12 @@ const markAllRead = async () => {
   try {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      "http://localhost:5000/api/notifications/student/read-all",
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+   await axios.put(
+  `${API_BASE}/api/notifications/student/read-all`,
+  {},
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     setNotifications((prev) =>
       prev.map((n) => ({ ...n, unread: false }))

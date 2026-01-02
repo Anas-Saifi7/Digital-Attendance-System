@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_URL;
+
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import {
@@ -38,9 +40,11 @@ export default function TeacherDetails() {
   const fetchTeachers = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get("http://localhost:5000/api/admin/teachers", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const res = await axios.get(
+  `${API_BASE}/api/admin/teachers`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       setTeachers(res.data);
     } catch (err) {
       console.error("Fetch teachers error", err);
@@ -59,15 +63,19 @@ export default function TeacherDetails() {
 
     try {
       if (editing) {
-        await axios.put(
-          `http://localhost:5000/api/admin/teachers/${editing._id}`,
-          form,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+    await axios.put(
+  `${API_BASE}/api/admin/teachers/${editing._id}`,
+  form,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       } else {
-        await axios.post(`http://localhost:5000/api/admin/teachers`, form, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+       await axios.post(
+  `${API_BASE}/api/admin/teachers`,
+  form,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       }
 
       setShowForm(false);
@@ -86,9 +94,11 @@ export default function TeacherDetails() {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.delete(`http://localhost:5000/api/admin/teachers/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+   await axios.delete(
+  `${API_BASE}/api/admin/teachers/${id}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       fetchTeachers();
     } catch (err) {
       console.error(err);

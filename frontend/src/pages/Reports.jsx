@@ -38,9 +38,7 @@ export default function ReportsV5() {
   const [showFilters, setShowFilters] = useState(false);
   const [dark, setDark] = useState(false);
   const chartRef = useRef(null);
-
-  // add An
-
+  const API_BASE = import.meta.env.VITE_API_URL;
 
 
 
@@ -49,9 +47,13 @@ export default function ReportsV5() {
     const loadAttendance = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5000/api/student/attendance", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+    const res = await axios.get(
+  `${API_BASE}/api/student/attendance`,
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+);
+
 
         setData(res.data);
       } catch (err) {

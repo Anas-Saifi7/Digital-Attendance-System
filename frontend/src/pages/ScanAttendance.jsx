@@ -4,6 +4,8 @@ import { Html5Qrcode } from "html5-qrcode";
 import axios from "axios";
 
 export default function ScanAttendance() {
+  const API_BASE = import.meta.env.VITE_API_URL;
+
   const scannerRef = useRef(null);
   const [status, setStatus] = useState("Waiting for scan...");
   const [loading, setLoading] = useState(false);
@@ -94,17 +96,17 @@ const stopScanner = async () => {
         return;
       }
 
-      const res = await axios.post(
-        "http://localhost:5000/api/attendance/mark",
-        {
-          // studentId,
-          sessionId: payload.sessionId,
-          qrToken: payload.qrToken,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+   const res = await axios.post(
+  `${API_BASE}/api/attendance/mark`,
+  {
+    sessionId: payload.sessionId,
+    qrToken: payload.qrToken,
+  },
+  {
+    headers: { Authorization: `Bearer ${token}` },
+  }
+);
+
 
       setStatus("✅ " + res.data.message);
 setScanning(false);

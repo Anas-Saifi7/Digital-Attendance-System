@@ -3,6 +3,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import "../Style/adminD.css";
 import axios from "axios";
 
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -35,6 +36,7 @@ ChartJS.register(
 );
 
 export default function AdminDashboard() {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const adminName = localStorage.getItem("adminName");
@@ -63,10 +65,11 @@ export default function AdminDashboard() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/attendance/all",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+     const res = await axios.get(
+  `${API_BASE}/api/attendance/all`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setAttendance(res.data || []);
     } catch (err) {

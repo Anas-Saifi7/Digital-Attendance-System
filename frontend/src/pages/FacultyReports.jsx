@@ -1,3 +1,4 @@
+const API_BASE = import.meta.env.VITE_API_URL;
 
 import React, { useState, useEffect, useMemo } from "react";
 import { Bar, Pie } from "react-chartjs-2";
@@ -36,10 +37,11 @@ export default function FacultyReports() {
   const loadReport = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(
-        `http://localhost:5000/api/faculty/reports?branch=${branch === "All" ? "" : branch}&subject=${subject === "All" ? "" : subject}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   const res = await axios.get(
+  `${API_BASE}/api/faculty/reports?branch=${branch === "All" ? "" : branch}&subject=${subject === "All" ? "" : subject}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       setStudentsData(res.data || []);
     } catch (err) {
       console.error("Load report error:", err);

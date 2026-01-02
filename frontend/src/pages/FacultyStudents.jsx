@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_URL;
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../Style/studentPage.css";
@@ -24,10 +26,11 @@ const [editData, setEditData] = useState({});
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/faculty/students",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+     const res = await axios.get(
+  `${API_BASE}/api/faculty/students`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setStudentData(res.data);
     } catch (err) {
@@ -42,9 +45,11 @@ const [editData, setEditData] = useState({});
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:5000/api/admin/students/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+    await axios.delete(
+  `${API_BASE}/api/admin/students/${id}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       // remove from UI
       setStudentData(studentData.filter((s) => s._id !== id));
@@ -58,11 +63,12 @@ const [editData, setEditData] = useState({});
   try {
     const token = localStorage.getItem("token");
 
-    await axios.put(
-      `http://localhost:5000/api/students/${id}`,
-      editData,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+  await axios.put(
+  `${API_BASE}/api/students/${id}`,
+  editData,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
     setEditId(null);
     loadStudents(); // refresh data

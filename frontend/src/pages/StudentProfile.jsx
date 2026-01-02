@@ -3,7 +3,10 @@ import { useLocation, Link } from "react-router-dom";
 import axios from "axios";
 import "../Style/studentProfile.css";
 
+
+
 const StudentProfile = () => {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const { state } = useLocation();
   const s = state?.student;
 
@@ -30,11 +33,11 @@ const StudentProfile = () => {
     try {
       const token = localStorage.getItem("token");
 
-      // TEMP — jab tak tum backend me proper report banate ho
-      const res = await axios.get(
-        `http://localhost:5000/api/faculty/report/${s._id}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+  const res = await axios.get(
+  `${API_BASE}/api/faculty/report/${s._id}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setAttendanceData({
         today: "Present",

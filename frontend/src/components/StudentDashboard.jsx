@@ -1,3 +1,5 @@
+const API_BASE = import.meta.env.VITE_API_URL;
+
 import React, { useState, useEffect } from "react";
 import "../Style/studentD.css";
 import { Link, useLocation } from "react-router-dom";
@@ -38,9 +40,11 @@ const [notifications, setNotifications] = useState([]);
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:5000/api/student/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+       const res = await axios.get(
+  `${API_BASE}/api/student/me`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
         setStudent(res.data);
 
@@ -72,9 +76,11 @@ setQrCode(qr);
       try {
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:5000/api/student/summary", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+     const res = await axios.get(
+  `${API_BASE}/api/student/summary`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
         setSummary(res.data);
       } catch (err) {
@@ -145,12 +151,11 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/student/notifications",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+     const res = await axios.get(
+  `${API_BASE}/api/student/notifications`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setNotifications(res.data);
     } catch (err) {

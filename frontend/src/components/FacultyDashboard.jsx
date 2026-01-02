@@ -1,4 +1,5 @@
-// / src/components/FacultyDashboard.jsx
+const API_BASE = import.meta.env.VITE_API_URL;
+
 import React, { useState, useEffect, useMemo } from "react";
 import { FiHome, FiUsers, FiFileText, FiBarChart2 } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
@@ -29,11 +30,12 @@ const facultyName = localStorage.getItem("facultyName");
   const markAsRead = async (notifId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:5000/api/student/notifications/${notifId}/read`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   await axios.put(
+  `${API_BASE}/api/student/notifications/${notifId}/read`,
+  {},
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setNotifications((prev) =>
         prev.map((n) =>
@@ -96,10 +98,11 @@ const facultyName = localStorage.getItem("facultyName");
       setLoadingStudents(true);
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/faculty/students",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const res = await axios.get(
+  `${API_BASE}/api/faculty/students`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setStudentList(res.data);
     } catch (err) {
@@ -115,10 +118,11 @@ const facultyName = localStorage.getItem("facultyName");
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/faculty/reports",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const res = await axios.get(
+  `${API_BASE}/api/faculty/reports`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       // Calculate overall attendance average
       if (res.data.length > 0) {
@@ -139,10 +143,11 @@ const facultyName = localStorage.getItem("facultyName");
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.get(
-        "http://localhost:5000/api/notifications/student",
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+   const res = await axios.get(
+  `${API_BASE}/api/notifications/student`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
 
       setNotifications(res.data || []);
     } catch (err) {
@@ -155,10 +160,11 @@ const facultyName = localStorage.getItem("facultyName");
     try {
       const token = localStorage.getItem("token");
       const today = new Date().toISOString().slice(0, 10);
-      const res = await axios.get(
-        `http://localhost:5000/api/faculty/attendance?date=${today}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    const res = await axios.get(
+  `${API_BASE}/api/faculty/attendance?date=${today}`,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
       const rows = res.data || [];
       setTodayAttendance(rows);
       const counts = rows.reduce(

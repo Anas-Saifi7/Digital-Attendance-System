@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 export default function FacultyCreateSession() {
   const [form, setForm] = useState({
@@ -25,11 +26,13 @@ export default function FacultyCreateSession() {
     try {
       const token = localStorage.getItem("token");
 
-      const res = await axios.post(
-        "http://localhost:5000/api/attendance/create-session",
-        form,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+ const res = await axios.post(
+  `${API_BASE}/api/attendance/create-session`,
+  form,
+  { headers: { Authorization: `Bearer ${token}` } }
+);
+
+
 
       console.log("BACKEND RESPONSE →", res.data);
       setSession(res.data);
