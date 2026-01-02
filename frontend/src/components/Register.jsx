@@ -1,7 +1,10 @@
+
+const API_BASE = import.meta.env.VITE_API_URL;
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
+
 
 function Register() {
   const initialForm = {
@@ -26,40 +29,43 @@ function Register() {
     setFormData({ ...initialForm, role });
   };
 
+const API_BASE = import.meta.env.VITE_API_URL;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setMessage("Passwords do not match!");
-      return;
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (formData.password !== formData.confirmPassword) {
+    setMessage("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const payload = {
+      ...formData,
+      rollNumber: formData.rollNumber,
+    };
+
+    const res = await axios.post(
+      `${API_BASE}/api/auth/register`,
+      payload
+    );
+
+    setMessage(res.data.message || "Registration successful!");
+    setTimeout(() => navigate("/login"), 1500);
+
+  } catch (error) {
+    if (error.response) {
+      setMessage(
+        error.response.data?.error ||
+        error.response.data?.message ||
+        "Something went wrong"
+      );
+    } else {
+      setMessage("Cannot connect to server");
     }
+  }
+};
 
-    try {
-      const payload = {
-        ...formData,
-        // rollNumber: formData.rollNo,
-        rollNumber: formData.rollNumber,
-
-      };
-      const res = await axios.post("http://localhost:5000/api/auth/register", payload);
-      setMessage(res.data.message || "Registration successful!");
-      setTimeout(() => navigate("/login"), 1500);
-    } catch (error) {
-      if (error.response) {
-        setMessage(
-          error.response.data?.error ||
-            error.response.data?.message ||
-            "Something went wrong"
-        );
-      } else if (error.request) {
-        setMessage(
-          "Cannot connect to server. Please make sure the backend server is running on port 5000."
-        );
-      } else {
-        setMessage(error.message || "Something went wrong");
-      }
-    }
-  };
 
   return (
     <div className="register-page">

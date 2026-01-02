@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../index.css";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 function Login() {
   const initialForm = {
@@ -24,11 +25,12 @@ function Login() {
     setFormData({ ...initialForm, role });
   };
 
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
   try {
-    const res = await axios.post("http://localhost:5000/api/auth/login", {
+    const res = await axios.post(`${API_BASE}/api/auth/login`, {
       email: formData.email,
       password: formData.password,
       role: formData.role,
@@ -37,17 +39,14 @@ const handleSubmit = async (e) => {
 
     setMessage("Login successful!");
 
-    // 🔑 COMMON (STANDARDIZED)
     localStorage.setItem("token", res.data.token);
     localStorage.setItem("userId", res.data.userId);
-    localStorage.setItem("role", res.data.role.toLowerCase()); // 🔥 IMPORTANT
+    localStorage.setItem("role", res.data.role.toLowerCase());
 
-    // 🧹 CLEAR OLD DATA
     localStorage.removeItem("adminName");
     localStorage.removeItem("facultyName");
     localStorage.removeItem("studentName");
 
-    // ✅ ROLE-SPECIFIC
     if (res.data.role === "Admin") {
       localStorage.setItem("adminName", res.data.fullName);
       localStorage.setItem("adminId", res.data.userId);
@@ -63,7 +62,7 @@ const handleSubmit = async (e) => {
     if (res.data.role === "Student") {
       localStorage.setItem("studentName", res.data.fullName);
       localStorage.setItem("studentId", res.data.userId);
-      navigate("/student-dashboard"); // ✅ FIXED
+      navigate("/student-dashboard");
     }
 
     window.dispatchEvent(new Event("authChanged"));
