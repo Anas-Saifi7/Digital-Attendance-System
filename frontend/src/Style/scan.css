@@ -1,0 +1,33 @@
+.scan-root {
+  padding: 20px;
+  max-width: 500px;
+  margin: auto;
+  text-align: center;
+}
+
+.scanner-box {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #0002;
+  margin: 20px 0;
+}
+
+.scan-status {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 18px;
+  color: green;
+  font-weight: bold;
+}
+
+.scan-result {
+  background: #111;
+  color: #0f0;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 10px;
+  text-align: left;
+  font-size: 14px;
+}

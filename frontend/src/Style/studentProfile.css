@@ -1,0 +1,122 @@
+/* WRAPPER */
+.profile-wrapper {
+  display: flex;
+  gap: 25px;
+  padding: 25px;
+  flex-wrap: wrap;
+}
+
+/* LEFT CARD */
+.left-card {
+  flex: 1;
+  min-width: 320px;
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+.left-card h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+/* RIGHT CARD */
+.right-card {
+  flex: 2;
+  min-width: 320px;
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 14px 0;
+}
+
+/* BADGES */
+.badge {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.present { background: #dcfce7; color: #166534; }
+.absent { background: #fee2e2; color: #b91c1c; }
+.late { background: #fef3c7; color: #b45309; }
+.attendance { background: #e0e7ff; color: #4338ca; }
+
+/* ANALYTICS */
+.analytics-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.analytics-card {
+  flex: 1;
+  background: #f8faff;
+  padding: 16px;
+  border-radius: 10px;
+}
+
+.today-box {
+  background: #f1f5ff;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.overall-box {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.overall-box h1 {
+  color: #1d4ed8;
+  font-size: 38px;
+  margin-top: 5px;
+}
+
+/* BUTTONS */
+.download-row {
+  display: flex;
+  margin-top: 20px;
+  gap: 15px;
+}
+
+.pdf-btn, .csv-btn {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.pdf-btn { background: #1d4ed8; }
+.csv-btn { background: #16a34a; }
+
+.pdf-btn:hover { background: #1639b7; }
+.csv-btn:hover { background: #0f7a2b; }
+
+/* BACK BUTTON */
+.back-btn {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 14px;
+  background: #1d4ed8;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+}

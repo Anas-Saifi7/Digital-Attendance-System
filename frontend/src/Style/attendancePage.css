@@ -1,0 +1,100 @@
+.att-page {
+  padding: 25px;
+}
+
+.att-page h2 {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+/* DATE */
+.date-row {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.date-row input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+}
+
+/* CARD */
+.att-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+}
+
+/* TABLE */
+.att-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.att-table th,
+.att-table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.att-table th {
+  text-align: left;
+  background: #f4f6ff;
+}
+
+/* STATUS BADGES */
+.badge {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.present {
+  background: #dcfce7;
+  color: #166534;
+}
+.absent {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+.late {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* EDIT SELECT */
+.edit-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+
+/* EXPORT BUTTONS */
+.export-btns {
+  display: flex;
+  gap: 15px;
+  margin-top: 22px;
+}
+
+.pdf-btn,
+.csv-btn {
+  flex: 1;
+  padding: 12px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.pdf-btn { background: #1d4ed8; }
+.csv-btn { background: #15803d; }
+
+.pdf-btn:hover { background: #1639b7; }
+.csv-btn:hover { background: #0e662e; }

@@ -1,0 +1,285 @@
+:root {
+  --blue: #0b5ed7;
+  --green: #22c55e;
+  --bg-light: #f3f6ff;
+  --white: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  --muted: #6b7280;
+}
+
+.stu-dashboard-root {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.stu-sidebar {
+  width: 240px;
+  background: var(--white);
+  padding: 26px 20px;
+  border-right: 1px solid #e5e9f3;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+.stu-logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--blue);
+  margin-bottom: 22px;
+}
+
+.stu-side-nav a {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: #1e293b;
+  font-size: 15px;
+  text-decoration: none;
+  gap: 10px;
+  transition: 0.25s;
+}
+
+.stu-side-nav a:hover {
+  background: #e7f1ff;
+}
+
+.stu-side-nav a.active {
+  background: rgba(11, 94, 215, 0.12);
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.stu-nav-icon {
+  font-size: 18px;
+}
+
+.stu-close-btn {
+  display: none;
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+@media (max-width:768px){
+  .stu-sidebar {
+    position:fixed;
+    left:-260px;
+    top:0;
+    height:100%;
+    z-index:1000;
+    transition:0.3s;
+  }
+  .stu-sidebar.open { left:0; }
+  .stu-close-btn { display:block; }
+  .stu-sidebar-backdrop {
+    position:fixed;
+    inset:0;
+    z-index:999;
+    background:rgba(0,0,0,0.4);
+  }
+}
+
+.stu-main-area {
+  flex:1;
+  background:var(--bg-light);
+}
+
+.stu-topbar {
+  width:100%;
+  padding:16px 24px;
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid #e5e9f3;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+
+.stu-hamburger {
+  display:none;
+  margin-right:auto;
+  font-size:26px;
+  background:none;
+  border:none;
+}
+
+@media(max-width:768px){
+  .stu-hamburger { display:block; }
+}
+
+.stu-topbar-right {
+  margin-left:auto;
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.stu-search-box {
+  height:42px;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  border:1px solid #d9deea;
+  border-radius:50px;
+  box-shadow:var(--shadow);
+  background:#fff;
+}
+
+.stu-search-box input {
+  border:none;
+  outline:none;
+  font-size:14px;
+  width:160px;
+}
+
+.stu-submit {
+  height:42px;
+  padding:0 20px;
+  border-radius:50px;
+  background:var(--blue);
+  color:#fff;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.stu-dashboard-container {
+  width:92%;
+  max-width:1200px;
+  margin:24px auto;
+  display:flex;
+  flex-direction:column;
+  gap:22px;
+}
+
+.stu-welcome-text {
+  font-size:22px;
+  font-weight:700;
+}
+
+.stu-row-cards {
+  display:flex;
+  gap:22px;
+}
+
+.stu-card {
+  background:var(--white);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:var(--shadow);
+}
+
+.stu-circle-card { flex:1; text-align:center; }
+
+.stu-circle-wrap {
+  width:170px;
+  height:170px;
+  margin:auto;
+  position:relative;
+}
+
+.stu-circle-center {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:28px;
+  font-weight:800;
+}
+
+.stu-circle-title {
+  margin-top:10px;
+  font-size:15px;
+  font-weight:600;
+}
+
+@media(max-width:600px){
+  .stu-circle-wrap { width:130px; height:130px; }
+  .stu-circle-center { font-size:22px; }
+}
+
+.stu-row-main {
+  display:flex;
+  gap:22px;
+}
+
+.stu-chart-card { flex:2; }
+.stu-notify-card { flex:1; }
+
+@media(max-width:992px){
+  .stu-row-main { flex-direction:column; }
+}
+
+.stu-notice {
+  background:#eef2ff;
+  padding:12px;
+  border-radius:10px;
+  display:flex;
+  gap:12px;
+  margin-bottom:10px;
+  align-items:center;
+}
+
+.stu-notice .dot { width:10px; height:10px; border-radius:50%; }
+
+.stu-notice.success .dot { background:#22c55e; }
+.stu-notice.alert .dot { background:#f59e0b; }
+.stu-notice.info .dot { background:#0ea5e9; }
+
+
+/* DOWNLOAD QR BUTTON */
+.stu-download-btn {
+  background: var(--blue);
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+  white-space: nowrap;
+}
+
+.stu-download-btn:hover {
+  background: #084bb8;
+}
+
+/* TOPBAR RESPONSIVE FIX (SAME LINE ON MOBILE) */
+.stu-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Make buttons smaller on mobile but keep same row */
+@media (max-width: 600px) {
+
+  .stu-topbar-right {
+    gap: 6px;
+  }
+
+  .stu-search-box input {
+    width: 120px;
+    padding: 6px;
+    font-size: 13px;
+  }
+
+  .stu-submit,
+  .stu-download-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .stu-search-box {
+    padding: 0 10px;
+    height: 36px;
+  }
+}
