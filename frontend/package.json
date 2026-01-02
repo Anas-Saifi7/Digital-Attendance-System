@@ -1,13 +1,13 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -24,14 +24,13 @@
     "jspdf": "^3.0.4",
     "jspdf-autotable": "^5.0.2",
     "qr-scanner": "^1.4.2",
-    "react": "^19.1.1",
+    "react": "^18.2.0",
     "react-chartjs-2": "^5.3.1",
-    "react-dom": "^19.1.1",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.62.0",
     "react-icons": "^5.5.0",
-    "react-qr-reader": "^3.0.0-beta-1",
-    "react-router-dom": "^7.9.6",
-    "react-webcam-qr-scanner": "^1.0.8",
+    "react-router-dom": "^6.23.1",
+    
     "recharts": "^3.2.1",
     "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.1.13",
@@ -39,8 +38,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
-    "@types/react": "^19.1.10",
-    "@types/react-dom": "^19.1.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^5.0.0",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
