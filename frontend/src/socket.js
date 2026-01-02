@@ -1,7 +1,8 @@
 import { io } from "socket.io-client";
 
-const socket = io(import.meta.env.VITE_API_URL, {
+const API_BASE = import.meta.env.VITE_API_URL;
+
+export const socket = io(API_BASE, {
+  autoConnect: false,
   transports: ["websocket", "polling"],
 });
-
-export default socket;
