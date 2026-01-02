@@ -5,7 +5,8 @@ import { FiHome, FiUsers, FiFileText, FiBarChart2 } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import "../Style/facultyD.css";
 import axios from "axios";
-import socket from "../socket.js";
+import { socket } from "../socket.js";
+
 
 
 
