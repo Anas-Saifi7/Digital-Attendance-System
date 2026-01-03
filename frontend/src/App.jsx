@@ -7,7 +7,8 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { socket } from "./socket";
+import socket from "./socket";
+
 
 import Register from "./components/Register.jsx";
 import Login from "./components/Login.jsx";
