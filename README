@@ -1,0 +1,15 @@
+## Digital Attendance System
+
+A web application for tracking attendance digitally with secure login and real-time marking.
+
+### Features
+- Login / Signup
+- Attendance dashboard
+- REST APIs
+- JWT Authentication
+
+### Tech Stack
+React | Node.js | Express | MongoDB
+
+### Live Demo
+https://digital-attendance-system-ten.vercel.app/
