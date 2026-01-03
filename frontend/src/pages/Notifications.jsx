@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import io from "socket.io-client";
+
 import "../Style/Notifications.css";
-const API_BASE = import.meta.env.VITE_API_URL;
-
-const socket = io(API_BASE, {
-  transports: ["websocket", "polling"],
-});
-
+import socket from "../socket";
 
 const Notifications = () => {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const [notifications, setNotifications] = useState([]);
 
 
@@ -38,19 +34,24 @@ useEffect(() => {
   // ---------------------------
   // 2) REAL-TIME SOCKET LISTENER
   // ---------------------------
-  useEffect(() => {
-    const studentId = localStorage.getItem("studentId"); // jab login me save kara tha
 
-    if (studentId) socket.emit("join_student", studentId);
+useEffect(() => {
+  if (typeof window === "undefined") return;
 
-    socket.on("new_notification", (notif) => {
-      setNotifications((prev) => [notif, ...prev]);
-    });
+  const studentId = localStorage.getItem("studentId");
+  if (!studentId) return;
 
-    return () => {
-      socket.off("new_notification");
-    };
-  }, []);
+  if (!socket.connected) socket.connect();
+  socket.emit("join_student", studentId);
+
+  socket.on("new_notification", (notif) => {
+    setNotifications((prev) => [notif, ...prev]);
+  });
+
+  return () => {
+    socket.off("new_notification");
+  };
+}, []);
 
   // ---------------------------
   // 3) MARK READ

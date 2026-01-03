@@ -6,8 +6,6 @@ import axios from "axios";
 import  socket  from "../socket.js";
 
 
-
-
 const FacultyDashboard = () => {
   const API_BASE = import.meta.env.VITE_API_URL;
   const [open, setOpen] = useState(false);
@@ -62,16 +60,14 @@ const facultyName = localStorage.getItem("facultyName");
     Absent: 0,
   });
 
-
-
-  useEffect(() => {
-  refreshAll();
+useEffect(() => {
+  if (typeof window === "undefined") return;
 
   const user = JSON.parse(localStorage.getItem("user"));
-  if (user?._id && !socket.connected) {
-    socket.connect();
-    socket.emit("join_faculty", user._id);
-  }
+  if (!user?._id) return;
+
+if (!socket.connected) socket.connect();
+socket.emit("join_faculty", user._id);
 
   socket.on("new_notification", (notif) => {
     setNotifications((prev) => [notif, ...prev]);
@@ -83,6 +79,7 @@ const facultyName = localStorage.getItem("facultyName");
 }, []);
 
 
+
   /* ------------------- API FUNCTIONS ------------------ */
 
   const refreshAll = () => {
@@ -91,6 +88,12 @@ const facultyName = localStorage.getItem("facultyName");
     fetchNotifs();
     fetchTodayAttendance();
   };
+
+  useEffect(() => {
+  refreshAll();
+  // eslint-disable-next-line
+}, []);
+
 
   // GET STUDENT LIST
   const fetchStudents = async () => {

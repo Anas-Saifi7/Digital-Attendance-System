@@ -1,47 +1,65 @@
-const API_BASE = import.meta.env.VITE_API_URL;
-
-import React, { useState, useEffect, useMemo } from "react";
-import { Bar, Pie } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  Tooltip,
-  Legend,
-  ArcElement,
-} from "chart.js";
-import jsPDF from "jspdf";
-import { saveAs } from "file-saver";
+import React, { useState, useEffect, useMemo, lazy, Suspense } from "react";
 import axios from "axios";
 import "../Style/facultyreports.css";
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement);
+
+/* ================== LAZY CHARTS ================== */
+const Bar = lazy(() =>
+  import("react-chartjs-2").then((m) => ({ default: m.Bar }))
+);
+const Pie = lazy(() =>
+  import("react-chartjs-2").then((m) => ({ default: m.Pie }))
+);
 
 const initialHistory = [];
 
 export default function FacultyReports() {
+  const API_BASE = import.meta.env.VITE_API_URL;
   const [range, setRange] = useState("Monthly");
   const [branch, setBranch] = useState("All");
   const [subject, setSubject] = useState("All");
   const [query, setQuery] = useState("");
   const [history, setHistory] = useState(initialHistory);
-
   const [studentsData, setStudentsData] = useState([]);
 
+  /* ================== LOAD CHART.JS SAFELY ================== */
+  useEffect(() => {
+    (async () => {
+      const chart = await import("chart.js");
+      const {
+        Chart,
+        BarElement,
+        CategoryScale,
+        LinearScale,
+        Tooltip,
+        Legend,
+        ArcElement,
+      } = chart;
+
+      Chart.register(
+        BarElement,
+        CategoryScale,
+        LinearScale,
+        Tooltip,
+        Legend,
+        ArcElement
+      );
+    })();
+  }, []);
+
+  /* ================== LOAD REPORT ================== */
   useEffect(() => {
     loadReport();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line
   }, [branch, subject]);
 
   const loadReport = async () => {
     try {
       const token = localStorage.getItem("token");
-   const res = await axios.get(
-  `${API_BASE}/api/faculty/reports?branch=${branch === "All" ? "" : branch}&subject=${subject === "All" ? "" : subject}`,
-  { headers: { Authorization: `Bearer ${token}` } }
-);
-
+      const res = await axios.get(
+        `${API_BASE}/api/faculty/reports?branch=${branch === "All" ? "" : branch}&subject=${subject === "All" ? "" : subject}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setStudentsData(res.data || []);
     } catch (err) {
       console.error("Load report error:", err);
@@ -49,6 +67,7 @@ export default function FacultyReports() {
     }
   };
 
+ 
   // Filter logic (client-side search)
   const filtered = useMemo(() => {
     return studentsData.filter((s) => {
@@ -91,36 +110,46 @@ export default function FacultyReports() {
     ],
   };
 
-  // PDF Export
-  const exportPDF = () => {
+ const exportPDF = async () => {
+    const jsPDF = (await import("jspdf")).default;
+
     const doc = new jsPDF();
     doc.text("Attendance Report", 10, 10);
+
     filtered.forEach((s, i) => {
-      doc.text(`${i + 1}. ${s.name} - ${s.attendance}%`, 10, 20 + i * 10);
+      doc.text(`${i + 1}. ${s.name} - ${s.attendance}%`, 10, 20 + i * 8);
     });
+
     doc.save("Attendance_Report.pdf");
     addHistory("PDF");
   };
 
-  // CSV Export
-  const exportCSV = () => {
+
+
+ const exportCSV = async () => {
+    const { saveAs } = await import("file-saver");
+
     let csv = "Name,Branch,Subject,Attendance%\n";
-    filtered.forEach((s) => (csv += `${s.name},${s.branch},${s.subject},${s.attendance}\n`));
+    filtered.forEach(
+      (s) => (csv += `${s.name},${s.branch},${s.subject},${s.attendance}\n`)
+    );
+
     const blob = new Blob([csv], { type: "text/csv" });
     saveAs(blob, "Attendance_Report.csv");
     addHistory("CSV");
   };
 
-  // Add to history
-  const addHistory = (format) => {
-    const entry = {
-      id: history.length + 1,
-      date: new Date().toISOString().split("T")[0],
-      type: `${range} Report`,
-      branch,
-      format,
-    };
-    setHistory((h) => [entry, ...h]);
+ const addHistory = (format) => {
+    setHistory((h) => [
+      {
+        id: h.length + 1,
+        date: new Date().toISOString().split("T")[0],
+        type: `${range} Report`,
+        branch,
+        format,
+      },
+      ...h,
+    ]);
   };
 
   return (
