@@ -90,6 +90,7 @@ const handleSubmit = async (e) => {
             type="password"
             name="password"
             placeholder="Enter Password"
+            autoComplete="current-password"
             value={formData.password}
             onChange={handleChange}
             required
